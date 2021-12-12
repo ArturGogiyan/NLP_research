@@ -16,4 +16,5 @@ def root():
 if __name__ == "__main__":
     from waitress import serve
 
+    print('Server started on port 4242')
     serve(app, host="0.0.0.0", port=4242)

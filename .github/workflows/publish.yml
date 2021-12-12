@@ -35,3 +35,4 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/nlp:${{ steps.vars.outputs.tag }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/nlp:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/nlp:buildcache,mode=max
+          build-args: pythonImage=python:3.8,pythonSlimImage=python:3.8-slim

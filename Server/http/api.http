@@ -1,0 +1,4 @@
+GET {{host}}/echo?echo=Kek
+Accept: application/json
+
+###

@@ -6,3 +6,4 @@ nltk
 sklearn
 xgboost
 dvc
+numpy

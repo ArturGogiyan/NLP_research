@@ -13,8 +13,10 @@ ENV FLASK_ENV=development
 ENV FLASK_DEBUG=0
 
 COPY --from=builder /root/.local /root/.local
+RUN pip install 'dvc[s3]'
 
 WORKDIR /app
 COPY Server/src/ ./
+COPY common/ ./common/
 
 ENTRYPOINT ["python", "-u", "main.py"]

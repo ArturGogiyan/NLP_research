@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+
+  nlp:
+    # docker build --build-arg pythonImage=python:3.8 --build-arg pythonSlimImage=python:3.8 -f Server.CI.Dockerfile -t basicec/nlp:latest .
+    image: basicec/nlp:latest
+    privileged: true
+    ports:
+      - "4042:4042"
+    volumes:
+      - "~/.aws:/root/.aws" # Configure AWS credentials for DVC remote
+
+

@@ -1,8 +1,9 @@
 ## Demo
 
-- pull docker image: `docker pull basicec/nlp:latest`
-- run docker image: `docker run -p 4242:4242 basicec/nlp:latest`
-- try: `curl 'http://localhost:4242/echo?echo=Hello'`
+- configure AWS credentials for S3 bucket: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
+- run `dvc repro`. This command will run pipelines to train models
+- run `docker build --build-arg pythonImage=python:3.8 --build-arg pythonSlimImage=python:3.8 -f Server.CI.Dockerfile -t basicec/nlp:latest .`
+- run `docker-compose up` - this will run server
 
 ## Project hints
 

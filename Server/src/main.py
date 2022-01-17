@@ -30,11 +30,11 @@ def xgb_predict():
 
 if __name__ == "__main__":
     print('Load dataset...')
-    df = utils.read_remote_dataset()
+    df = utils.read_remote_dataset('s3bucket')
     print('Load XGBoost BagOfWords...')
-    xgb_bow = bagofwords.load_bag_of_words(utils.read_remote_file('model/xgb_bow.json'))
+    xgb_bow = bagofwords.load_bag_of_words(utils.read_remote_file('model/xgb_bow.json', 's3bucket'))
     print('Load XGBoost model...')
-    xgbooster.load_model(bytearray(utils.read_remote_file('model/xgb.json'), 'utf-8'))
+    xgbooster.load_model(bytearray(utils.read_remote_file('model/xgb.json', 's3bucket'), 'utf-8'))
 
     from waitress import serve
 

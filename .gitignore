@@ -1,1 +1,4 @@
 .idea/
+/DatasetProcessing.py
+/NaiveBayesClassifier.py
+/XGBoost.py

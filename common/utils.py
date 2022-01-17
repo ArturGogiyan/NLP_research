@@ -1,3 +1,16 @@
+import dvc.api
+import pandas as pd
+
+
+def read_remote_file(file, remote='helios'):
+    return dvc.api.read(file, repo='https://github.com/ArturGogiyan/NLP_research', remote=remote)
+
+
+def read_remote_dataset(remote='helios'):
+    with dvc.api.open('dataset/post_processed.csv', repo='https://github.com/ArturGogiyan/NLP_research',
+                      remote=remote) as fd:
+        return pd.read_csv(fd)
+
 
 def get_train_and_test(df, class_name="All", test_percentage=50):
     minimum_classes = 0

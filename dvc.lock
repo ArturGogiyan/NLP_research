@@ -1,0 +1,73 @@
+schema: '2.0'
+stages:
+  nbconvert:
+    cmd: jupyter nbconvert DatasetProcessing.ipynb --to python --output DatasetProcessing.py
+      && jupyter nbconvert NaiveBayesClassifier.ipynb --to python --output NaiveBayesClassifier.py
+      && jupyter nbconvert XGBoost.ipynb --to python --output XGBoost.py
+    deps:
+    - path: DatasetProcessing.ipynb
+      md5: c1c27b6d5f5c298e5ef5940cfd6564c6
+      size: 300441
+    - path: NaiveBayesClassifier.ipynb
+      md5: db0a1a4355a35771b27b808e39f1d3c9
+      size: 254735
+    - path: XGBoost.ipynb
+      md5: 3b722b8e73a9257976e7ba03245ff1a9
+      size: 19464
+    outs:
+    - path: DatasetProcessing.py
+      md5: 78be0a469fdffd11174f0abcf88ba073
+      size: 4916
+    - path: NaiveBayesClassifier.py
+      md5: 37c7e17d9e5e7489efe534ded992ccbd
+      size: 3327
+    - path: XGBoost.py
+      md5: a82e1ca77e44095ff41d091d4de78d1f
+      size: 2173
+  preprocess:
+    cmd: ipython DatasetProcessing.py
+    deps:
+    - path: DatasetProcessing.py
+      md5: 78be0a469fdffd11174f0abcf88ba073
+      size: 4916
+    outs:
+    - path: ./dataset/post_processed.csv
+      md5: eb90cffdc3b727d867c0c8f3adc13385
+      size: 944426
+  xboost:
+    cmd: ipython XGBoost.py
+    deps:
+    - path: ./common/bagofwords.py
+      md5: 87ed8de899d51c8ada53c4acb71ddd95
+      size: 1213
+    - path: ./common/utils.py
+      md5: 2b67c3fd46a36a2c18ec51a3b8f7d6bc
+      size: 1453
+    - path: ./dataset/post_processed.csv
+      md5: eb90cffdc3b727d867c0c8f3adc13385
+      size: 944426
+    - path: XGBoost.py
+      md5: a82e1ca77e44095ff41d091d4de78d1f
+      size: 2173
+    outs:
+    - path: ./model/xgb.json
+      md5: 360db2f4f62225e758834df3148a9c14
+      size: 280190
+    - path: ./model/xgb_bow.json
+      md5: 2b8f9643f98b0ccf4f7ca84a4923f79f
+      size: 65916
+  naivebayes:
+    cmd: ipython NaiveBayesClassifier.py
+    deps:
+    - path: ./common/bagofwords.py
+      md5: 87ed8de899d51c8ada53c4acb71ddd95
+      size: 1213
+    - path: ./common/utils.py
+      md5: 2b67c3fd46a36a2c18ec51a3b8f7d6bc
+      size: 1453
+    - path: ./dataset/post_processed.csv
+      md5: eb90cffdc3b727d867c0c8f3adc13385
+      size: 944426
+    - path: NaiveBayesClassifier.py
+      md5: 37c7e17d9e5e7489efe534ded992ccbd
+      size: 3327

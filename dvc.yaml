@@ -1,0 +1,37 @@
+stages:
+  nbconvert:
+    cmd: jupyter nbconvert DatasetProcessing.ipynb --to python --output DatasetProcessing.py
+      && jupyter nbconvert NaiveBayesClassifier.ipynb --to python --output NaiveBayesClassifier.py
+      && jupyter nbconvert XGBoost.ipynb --to python --output XGBoost.py
+    deps:
+      - DatasetProcessing.ipynb
+      - NaiveBayesClassifier.ipynb
+      - XGBoost.ipynb
+    outs:
+      - DatasetProcessing.py
+      - NaiveBayesClassifier.py
+      - XGBoost.py
+  preprocess:
+    cmd: ipython DatasetProcessing.py
+    deps:
+      - ./dataset/dataset_research.csv
+      - DatasetProcessing.py
+    outs:
+      - ./dataset/post_processed.csv
+  xboost:
+    cmd: ipython XGBoost.py
+    deps:
+      - ./dataset/post_processed.csv
+      - ./common/bagofwords.py
+      - ./common/utils.py
+      - XGBoost.py
+    outs:
+      - ./model/xgb.json
+      - ./model/xgb_bow.json
+  naivebayes:
+    cmd: ipython NaiveBayesClassifier.py
+    deps:
+      - ./dataset/post_processed.csv
+      - ./common/bagofwords.py
+      - ./common/utils.py
+      - NaiveBayesClassifier.py

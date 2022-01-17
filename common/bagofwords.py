@@ -2,8 +2,8 @@ import numpy as np
 import json
 
 
-def load_bag_of_words(file):
-    bow = json.load(file)
+def load_bag_of_words(st):
+    bow = json.loads(st)
     return BagOfWords(bag=bow)
 
 

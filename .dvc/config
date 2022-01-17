@@ -3,5 +3,7 @@
     autostage = true
 ['remote "origin"']
     url = gdrive://1RH5Ijbf7E3XEePqsLrbaufXvHXp2f35u
+['remote "s3bucket"']
+    url = s3://dvc-bucket/dvc-store/
 ['remote "helios"']
     url = ssh://s223791@se.ifmo.ru:/home/s223791/DVC_STORAGE

@@ -1,4 +1,4 @@
-GET {{host}}/echo?echo=Kek
+GET {{host}}/xgb?text=sometext
 Accept: application/json
 
 ###

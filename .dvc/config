@@ -3,3 +3,5 @@
     autostage = true
 ['remote "origin"']
     url = gdrive://1RH5Ijbf7E3XEePqsLrbaufXvHXp2f35u
+['remote "helios"']
+    url = ssh://s223791@se.ifmo.ru:/home/s223791/DVC_STORAGE

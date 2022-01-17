@@ -1,12 +1,22 @@
 import numpy as np
+import json
+
+
+def load_bag_of_words(file):
+    bow = json.load(file)
+    return BagOfWords(bag=bow)
 
 
 class BagOfWords:
-    def __init__(self, texts, k=0):
+    def __init__(self, texts=None, k=0, bag=None):
+        if bag is not None:
+            self.bow_vocabulary = bag
+            return
+
+        bag = dict()
         if k <= 0:
             k = len(set(' '.join(texts).split()))
 
-        bag = dict()
         for comment in texts:
             for word in comment.split(' '):
                 if word not in bag.keys():
@@ -30,3 +40,7 @@ class BagOfWords:
                 bow[voc_map[token]] += 1
 
         return np.array(bow, 'float32')
+
+    def save(self, filename):
+        with open(filename, mode='w+') as fp:
+            json.dump(self.bow_vocabulary, fp)

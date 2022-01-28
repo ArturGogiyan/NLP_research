@@ -1,5 +1,5 @@
 [core]
-    remote = origin
+    remote = s3bucket
     autostage = true
 ['remote "origin"']
     url = gdrive://1RH5Ijbf7E3XEePqsLrbaufXvHXp2f35u

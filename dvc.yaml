@@ -14,24 +14,24 @@ stages:
   preprocess:
     cmd: ipython DatasetProcessing.py
     deps:
-      - ./dataset/dataset_research.csv
+      - dataset/dataset_research.csv
       - DatasetProcessing.py
     outs:
-      - ./dataset/post_processed.csv
+      - dataset/post_processed.csv
   xboost:
     cmd: ipython XGBoost.py
     deps:
-      - ./dataset/post_processed.csv
-      - ./common/bagofwords.py
-      - ./common/utils.py
+      - dataset/post_processed.csv
+      - common/bagofwords.py
+      - common/utils.py
       - XGBoost.py
     outs:
-      - ./model/xgb.json
-      - ./model/xgb_bow.json
+      - model/xgb.json
+      - model/xgb_bow.json
   naivebayes:
     cmd: ipython NaiveBayesClassifier.py
     deps:
-      - ./dataset/post_processed.csv
-      - ./common/bagofwords.py
-      - ./common/utils.py
+      - dataset/post_processed.csv
+      - common/bagofwords.py
+      - common/utils.py
       - NaiveBayesClassifier.py

@@ -6,8 +6,8 @@ stages:
       && jupyter nbconvert XGBoost.ipynb --to python --output XGBoost.py
     deps:
     - path: DatasetProcessing.ipynb
-      md5: 82cf77e06e981355585e4bbb8a85d284
-      size: 300443
+      md5: d25755c1a1a7c4ade1852f521edd220d
+      size: 300437
     - path: NaiveBayesClassifier.ipynb
       md5: 1e259a08b22aced7f377d0c81ba17316
       size: 254741
@@ -16,8 +16,8 @@ stages:
       size: 5860
     outs:
     - path: DatasetProcessing.py
-      md5: e2daac003ce7e10a36f5f1f4c03484ec
-      size: 4918
+      md5: 2704703ff65f5ebe28881d43b7756e91
+      size: 4912
     - path: NaiveBayesClassifier.py
       md5: 895eb2deacb0bd766756c71203d4f4a6
       size: 3333
@@ -27,53 +27,53 @@ stages:
   preprocess:
     cmd: ipython DatasetProcessing.py
     deps:
-    - path: ./dataset/dataset_research.csv
+    - path: DatasetProcessing.py
+      md5: 2704703ff65f5ebe28881d43b7756e91
+      size: 4912
+    - path: dataset/dataset_research.csv
       md5: c8e967b72b4d3dfc933e8c3bfbd72e64
       size: 1078619
-    - path: DatasetProcessing.py
-      md5: e2daac003ce7e10a36f5f1f4c03484ec
-      size: 4918
     outs:
-    - path: ./dataset/post_processed.csv
-      md5: 71d610d5c92f9348be1be1443e93ff82
+    - path: dataset/post_processed.csv
+      md5: 7103d4f33a3f2c66ff6a84376be0bde6
       size: 944426
   xboost:
     cmd: ipython XGBoost.py
     deps:
-    - path: ./common/bagofwords.py
-      md5: 87ed8de899d51c8ada53c4acb71ddd95
-      size: 1213
-    - path: ./common/utils.py
-      md5: 2b67c3fd46a36a2c18ec51a3b8f7d6bc
-      size: 1453
-    - path: ./dataset/post_processed.csv
-      md5: 71d610d5c92f9348be1be1443e93ff82
-      size: 944426
     - path: XGBoost.py
       md5: c0bcc0c15cdeee964ed06a3f07f6fd3d
       size: 2179
+    - path: common/bagofwords.py
+      md5: 87ed8de899d51c8ada53c4acb71ddd95
+      size: 1213
+    - path: common/utils.py
+      md5: 548762f614348fc42166da3b16ebd2cb
+      size: 1355
+    - path: dataset/post_processed.csv
+      md5: 7103d4f33a3f2c66ff6a84376be0bde6
+      size: 944426
     outs:
-    - path: ./model/xgb.json
-      md5: 68dd925cce8c54a3cc514460d672930a
-      size: 292636
-    - path: ./model/xgb_bow.json
+    - path: model/xgb.json
+      md5: ca6087dccb81898c57a70ed1ca65314b
+      size: 284912
+    - path: model/xgb_bow.json
       md5: 2b8f9643f98b0ccf4f7ca84a4923f79f
       size: 65916
   naivebayes:
     cmd: ipython NaiveBayesClassifier.py
     deps:
-    - path: ./common/bagofwords.py
-      md5: 87ed8de899d51c8ada53c4acb71ddd95
-      size: 1213
-    - path: ./common/utils.py
-      md5: 2b67c3fd46a36a2c18ec51a3b8f7d6bc
-      size: 1453
-    - path: ./dataset/post_processed.csv
-      md5: 71d610d5c92f9348be1be1443e93ff82
-      size: 944426
     - path: NaiveBayesClassifier.py
       md5: 895eb2deacb0bd766756c71203d4f4a6
       size: 3333
+    - path: common/bagofwords.py
+      md5: 87ed8de899d51c8ada53c4acb71ddd95
+      size: 1213
+    - path: common/utils.py
+      md5: 548762f614348fc42166da3b16ebd2cb
+      size: 1355
+    - path: dataset/post_processed.csv
+      md5: 7103d4f33a3f2c66ff6a84376be0bde6
+      size: 944426
   docker:
     cmd: docker build --build-arg pythonImage=python:3.8 --build-arg pythonSlimImage=python:3.8
       -f Server.CI.Dockerfile -t $DOCKER_HUB_USERNAME/nlp:latest .

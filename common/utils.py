@@ -11,7 +11,6 @@ def read_remote_dataset(remote='helios'):
                       remote=remote) as fd:
         return pd.read_csv(fd)
 
-
 def get_train_and_test(df, class_name="All", test_percentage=50):
     minimum_classes = 0
     if 0 < test_percentage <= 100:
